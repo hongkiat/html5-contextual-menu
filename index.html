@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>HTML5 Contextual Menu</title>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
+<link href='http://fonts.googleapis.com/css?family=Playfair+Display+SC:700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/style.css">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="../_nav/js/nav.js" type="text/javascript"></script>
+</head>
+
+<body>
+<!-- demo content -->
+<div class="demo-meta">
+	<h1 class="demo-title">HTML5 Contextual Menu</h1>
+	<p class="demo-desc">This demo shows how we can take benefits of HTML5 Cotnextual Menu to add new menu when the user right click.</p>
+</div>
+
+<div class="demo-wrapper">
+	<div class="warning">
+		<p>Please view this demo in Firefox.</p>
+	</div>
+	<div class="instruction">
+		<ul>
+			<li>Right-click on the content and select "Edit Content". Click "Save" to save the changes you made. Click "Cancel" to abort (don't forget to refresh the page).</li>
+			<li>Highlight the content text, right-click, and select "Email Selection" to send the highlighted text.</li>
+		</ul>
+	</div>
+	<div id="content" class="html5-context-menu" contextmenu="context-menu-id" contenteditable="false">
+		<h3 class="head">Heading</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, iusto debitis autem pariatur commodi excepturi animi eius quam rem non magni recusandae ipsa sit fugit aliquam expedita enim nisi eaque?</p>
+		
+		<h4>Smaller Heading</h4>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, numquam, optio blanditiis autem enim iure commodi tempore accusamus sunt animi laboriosam ullam minus minima quidem a dicta facere eos error quia voluptas perspiciatis quas illum dolore. Quibusdam, placeat, ad, culpa, ea eius quas maiores necessitatibus dolore quisquam delectus quos dicta.</p>
+	</div>
+	<button id="save">Save</button>
+	<button id="cancel">Cancel</button>
+	<!-- menu -->
+	<menu type="context" id="context-menu-id">
+		<menuitem icon="img/edit.png" onclick="editContent();">Edit Content</menuitem>
+		<menuitem icon="img/mail.png" onclick="sendEmail();">Email Selection</menuitem>
+	</menu>
+</div>
+
+<script>
+var $theContent   = $('#content');// set the content
+var $saveButton   = $('#save');
+var $cancelButton = $('#cancel');
+
+function editContent() {
+	$theContent.attr('contenteditable', 'true');
+	$saveButton.add($cancelButton).show();
+};
+
+function getSelectedText() {
+	var text = "";
+	if(window.getSelection) {
+		text = window.getSelection().toString();
+	} else if (document.selection && document.selection.type != 'Control') {
+		text = document.selection.createRange().text;
+	}
+	return text;
+};
+function sendEmail() {
+	var bodyText = getSelectedText();
+    window.location.href = 'mailto:?subject='+ document.title +'&body='+ bodyText +'';
+}
+
+(function() {
+	// store the new content in localStorage when the button is clicked
+	function disableEditable() {
+		$theContent.attr('contenteditable', 'false');
+		$saveButton.add($cancelButton).hide();
+	};
+	function getNewContent() {
+		if(localStorage.getItem('newContent')) {
+			$theContent.html(localStorage.getItem('newContent'));
+			console.log(localStorage.getItem('newContent'));
+		}	
+	};
+	getNewContent();
+	$saveButton.on('click', function() {
+		var editedContent = $theContent.html();
+
+		localStorage.newContent = editedContent;
+		disableEditable();
+		getNewContent();
+	});
+	$cancelButton.on('click', function() {
+		disableEditable();
+	});
+})();
+</script>
+</body>
+</html>

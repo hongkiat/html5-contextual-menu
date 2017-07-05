@@ -1,0 +1,73 @@
+body {
+	background-color: #f8f9fB;
+	color: #666;
+	text-rendering: optimizeLegibility;
+}
+*[contenteditable="true"] {
+	border: 1px dashed #ccc;
+	background-color: #fcf8e3;
+	padding: 0 20px 20px;
+	outline: none;
+	color: #000;
+}
+.demo-wrapper {
+	width: 100%;
+	max-width: 680px;
+	margin: 100px auto;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: 300;
+}
+.demo-wrapper h3,
+.demo-wrapper h4 {
+	color: #333;
+	font-family: 'Playfair Display SC', Georgia, serif;
+	font-weight: 700;
+}
+.demo-wrapper .warning,
+.demo-wrapper .instruction {
+	color: #fff;
+	padding: 10px;
+	margin-bottom: 20px;
+	border-radius: 3px;
+	font-weight: 400;
+	font-size: 14px;
+}
+.demo-wrapper .warning {
+	background-color: #f1c40f;
+	text-align: center;
+}
+.demo-wrapper .instruction {
+	background-color: #ecf0f1;
+	color: #7f8c8d;
+}
+.demo-wrapper .warning p {
+	margin: 0;
+}
+.demo-wrapper .html5-context-menu {
+	margin-bottom: 20px;
+}
+.demo-wrapper .html5-context-menu p {
+	font-size: 16px;
+}
+.demo-wrapper button {
+	background-color: transparent;
+	border: 0;
+	font-weight: 400;
+	font-size: 12px;
+	text-transform: uppercase;
+	color: #fff;
+	padding: 8px 12px;
+	border-radius: 3px;
+}
+.demo-wrapper #save,
+.demo-wrapper #cancel,
+#context-menu-id {
+	display: none;
+
+}
+.demo-wrapper #save {
+	background-color: #27ae60;
+}
+.demo-wrapper #cancel {
+	background-color: #e74c3c;
+}
